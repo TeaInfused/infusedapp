@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Infused</title>
+  </head>
+  <body>
+    <h1>List of teas</h1>
+    <div id="result"></div>
+    <script>
+      const xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function(event) {
+      // XMLHttpRequest.DONE === 4
+        if (this.readyState === XMLHttpRequest.DONE) {
+          var result_placeholder = document.getElementById('result')
+          if (this.status === 200) {
+            result_placeholder.innerText = this.response;
+          }
+        }
+      };
+      xhttp.open('GET', 'https://teainfused.herokuapp.com/teas', true);
+      xhttp.send();
+    </script>
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+    </script>
+  </body>
+</html>
