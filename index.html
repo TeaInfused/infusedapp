@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+  <script>window.$ = window.jQuery = require('./vendor/jquery-3.3.1.min.js');</script>
   <head>
     <meta charset="UTF-8">
     <title>Infused</title>
@@ -11,11 +12,15 @@
       const xhttp = new XMLHttpRequest();
 
       xhttp.onreadystatechange = function(event) {
-      // XMLHttpRequest.DONE === 4
+        // call-back
         if (this.readyState === XMLHttpRequest.DONE) {
           var result_placeholder = document.getElementById('result')
           if (this.status === 200) {
-            result_placeholder.innerText = this.response;
+            var json_response = JSON.parse(this.response);
+            $('#result').append('<ul/>');
+            $.each(json_response, function(index, value) {
+              $('#result').append('<li><em>' + value.name + '</em> (' + value.type + ')</li>');
+            });
           }
         }
       };
